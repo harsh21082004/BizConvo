@@ -6,7 +6,7 @@ import {jwtDecode} from 'jwt-decode'; // Import jwt-decode
 
 const Register = () => {
   const [isVerified, setIsVerified] = useState(false);
-  const [verifying, setVerifying] = useState(false);
+  const [verifying, setVerifying] = useState(false); 
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -118,7 +118,7 @@ const Register = () => {
           }
         }
       } catch (error) {
-        console.error('Error verifying OTP:', error);
+        console.error('Error verifying OTP: ', error);
       }
     } else {
       // Send OTP step
