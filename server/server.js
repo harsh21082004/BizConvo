@@ -52,6 +52,11 @@ app.use('/api/conversation', conversationRoutes);
 // Socket.IO setup
 chatSockets(io);
 
+app.get('/', (req, res) => {
+  res.send('Backend is running');
+});
+
+
 // Start server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
