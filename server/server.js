@@ -22,14 +22,12 @@ connectDB();
 // Middleware
 app.use(cors({
   origin: 'https://biz-convo.vercel.app', // Update with your frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'], // Add any headers your frontend might be sending
+  credentials: true 
 }));
 
-app.options('*', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://biz-convo.vercel.app'); // Update with your frontend URL
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  res.sendStatus(204);
-});
+app.options('*', cors());
 app.use(express.json());
 
 app.use('/uploads', express.static(path.join(__dirname, '../client/public/uploads')));
