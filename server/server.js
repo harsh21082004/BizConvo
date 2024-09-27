@@ -20,13 +20,20 @@ const io = socketio(server);
 connectDB();
 
 // Middleware
-const corsOptions = {
-  origin: 'https://biz-convo.vercel.app', // Replace this with your frontend URL
+app.use(cors({
+  origin: 'https://biz-convo.vercel.app', // Update with your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-};
+  credentials: true
+}));
 
-app.use(cors(corsOptions));
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://biz-convo.vercel.app'); // Update with your frontend URL
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(204);
+});
 app.use(express.json());
 
 app.use('/uploads', express.static(path.join(__dirname, '../client/public/uploads')));
