@@ -54,6 +54,7 @@ chatSockets(io);
 
 app.get('/', (req, res) => {
   res.send('Backend is running');
+  console.log(Backend is running);
 });
 
 
