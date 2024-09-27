@@ -20,7 +20,13 @@ const io = socketio(server);
 connectDB();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: 'https://biz-convo.vercel.app', // Replace this with your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/uploads', express.static(path.join(__dirname, '../client/public/uploads')));
