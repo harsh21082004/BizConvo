@@ -1,11 +1,9 @@
 const express = require('express');
 const http = require('http');
-const socketio = require('socket.io');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const chatRoutes = require('./routes/chat');
 const conversationRoutes = require('./routes/conversation');
-const chatSockets = require('./sockets/chatSocket');
 const cors = require('cors');
 const path = require('path');
 
@@ -23,22 +21,19 @@ connectDB();
 app.use(cors({
   origin: 'https://biz-convo.vercel.app', // Update with your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'], // Add any headers your frontend might be sending
-  credentials: true 
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://biz-convo.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  
-  // Respond OK to preflight requests
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
-
-  next();
+// Explicitly handle preflight requests
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://biz-convo.vercel.app'); // Update with your frontend URL
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(204);
 });
+
 app.use(express.json());
 
 app.use('/uploads', express.static(path.join(__dirname, '../client/public/uploads')));
@@ -49,19 +44,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/conversation', conversationRoutes);
 
-// Socket.IO setup
-chatSockets(io);
 
 app.get('/', (req, res) => {
   res.send('Backend is running');
   console.log("Backend");
-});
-
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 
