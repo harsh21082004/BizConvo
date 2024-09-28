@@ -112,6 +112,7 @@ const Register = () => {
           if (decoded.isVerified) {
             setIsVerified(true); // Set isVerified to true if verified
             setVerifying(false);
+            console.log("verifying", verifying, isVerified);
 
             // Store the isVerified token in localStorage
             localStorage.setItem('user', response.data.user);
@@ -132,6 +133,8 @@ const Register = () => {
         if (response.statusText === 'OK') {
           setVerifying(true); // Set verifying to true after sending OTP
         }
+
+        console.log("verifying", verifying);
       } catch (error) {
         console.error('Error sending OTP:', error);
       }
