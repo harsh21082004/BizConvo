@@ -83,8 +83,6 @@ const Register = () => {
         });
 
         console.log(response.data);
-
-        if (response.statusText === 'OK') {
           const res = response.data;
           localStorage.setItem('token', res.token);
           localStorage.removeItem('user');
@@ -92,7 +90,6 @@ const Register = () => {
           setTimeout(() => {
             window.location.href = '/';
           }, 2000);
-        }
       } catch (error) {
         console.error('Error registering user:', error);
       }
@@ -106,7 +103,6 @@ const Register = () => {
 
         console.log(response.data);
 
-        if (response.data) {
           // Decode the isVerified JWT token
           const decoded = jwtDecode(response.data.user);
           if (decoded.isVerified) {
@@ -117,7 +113,6 @@ const Register = () => {
             // Store the isVerified token in localStorage
             localStorage.setItem('user', response.data.user);
           }
-        }
       } catch (error) {
         console.error('Error verifying OTP: ', error);
       }
