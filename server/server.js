@@ -40,6 +40,11 @@ app.use('/uploads', express.static(path.join(__dirname, '../client/public/upload
 
 
 // Routes
+
+app.get("/", (req, res) => {
+  res.json("Hello");
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/conversation', conversationRoutes);
