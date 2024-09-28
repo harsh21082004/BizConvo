@@ -11,5 +11,8 @@ router.post('/login-email', sendOTP);
 router.post('/authUser', getAuthUser)
 router.get('/users', getUsers)
 router.get('/usersDetails/:userId', getUserDetails)
+router.get('/',(req,res)=>{
+  res.json("hello");
+});
 
 module.exports = router;
