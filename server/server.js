@@ -12,7 +12,6 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const server = http.createServer(app);
 const io = socketio(server);
 
 
@@ -20,7 +19,7 @@ const io = socketio(server);
 connectDB();
 
 app.use(cors({
-  origin: 'https://free-spotify-using-mern-mcov.vercel.app', // Update with your frontend URL
+  origin: 'https://biz-convo.vercel.app', // Update with your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -28,7 +27,7 @@ app.use(cors({
 
 // Explicitly handle preflight requests
 app.options('*', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://free-spotify-using-mern-mcov.vercel.app'); // Update with your frontend URL
+  res.setHeader('Access-Control-Allow-Origin', 'https://biz-convo.vercel.app'); // Update with your frontend URL
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -54,6 +53,6 @@ chatSockets(io);
 
 // Start server
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-module.exports = server;
+module.exports = app;
