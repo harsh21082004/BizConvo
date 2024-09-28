@@ -129,10 +129,7 @@ const Register = () => {
         });
 
         console.log(response.data);
-
-        if (response.statusText === 'OK') {
-          setVerifying(true); // Set verifying to true after sending OTP
-        }
+          setVerifying(true);
 
         console.log("verifying", verifying);
       } catch (error) {
