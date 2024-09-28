@@ -59,7 +59,6 @@ const Login = () => {
 
         console.log(response);
 
-        if (response.data) {
           localStorage.setItem('token', response.data.token);
           const decoded = jwtDecode(response.data.user);
           if (decoded.isVerified) {
@@ -68,7 +67,6 @@ const Login = () => {
             setTimeout(() => {
               window.location.href = '/'; // Or any protected route
             }, 2000);
-          }
         }
       } catch (error) {
         console.error('Error verifying OTP:', error);
@@ -83,9 +81,8 @@ const Login = () => {
             'Content-Type': 'application/json',
           },
         });
-        if (response.statusText === 'OK') {
           setVerifying(true); // Set verifying to true after sending OTP
-        }
+      
       } catch (error) {
         console.error('Error sending OTP:', error);
       }
