@@ -40,13 +40,13 @@ const Routers = () => {
     // }, [location]);
 
     // Redirect based on login status
-    useEffect(() => {
-        if (isLoggedIn && (location.pathname === '/login' || location.pathname === '/register')) {
-            navigate('/'); // Redirect to home if logged in and accessing login/register
-        } else if (!isLoggedIn && location.pathname !== '/login' && location.pathname !== '/register') {
-            navigate('/login'); // Redirect to login if not logged in and accessing protected routes
-        }
-    }, [isLoggedIn, location, navigate]);
+    // useEffect(() => {
+    //     if (isLoggedIn && (location.pathname === '/login' || location.pathname === '/register')) {
+    //         navigate('/'); // Redirect to home if logged in and accessing login/register
+    //     } else if (!isLoggedIn && location.pathname !== '/login' && location.pathname !== '/register') {
+    //         navigate('/login'); // Redirect to login if not logged in and accessing protected routes
+    //     }
+    // }, [isLoggedIn, location, navigate]);
 
     return (
         <Routes>
